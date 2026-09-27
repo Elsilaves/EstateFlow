@@ -66,6 +66,25 @@ namespace EstateFlow.Server.Data
                 }
             );
 
+            modelBuilder.Entity<Meter>().HasData(
+                new Meter
+                {
+                    Id = new Guid("1f8fad5b-d9cb-469f-a165-70867728950e"),
+                    Name = "Electricity Meter",
+                    Location = "Basement",
+                    SerialNumber = "ELEC123456",
+                    PropertyId = new Guid("0f8fad5b-d9cb-469f-a165-70867728950e")
+                },
+                new Meter
+                {
+                    Id = new Guid("3c9e6679-7425-40de-944b-e07456789012"),
+                    Name = "Water Meter",
+                    Location = "Utility Room",
+                    SerialNumber = "WATR654321",
+                    PropertyId = new Guid("7c9e6679-7425-40de-944b-e07456789012")
+                }
+            );
+
         }
     }
 }
