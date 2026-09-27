@@ -7,6 +7,7 @@
     <SpaRoot>..\estateflow.client</SpaRoot>
     <SpaProxyLaunchCommand>npm run dev</SpaProxyLaunchCommand>
     <SpaProxyServerUrl>https://localhost:53565</SpaProxyServerUrl>
+    <UserSecretsId>5ee02978-1711-4f8c-9e78-cb6e3f96e039</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
