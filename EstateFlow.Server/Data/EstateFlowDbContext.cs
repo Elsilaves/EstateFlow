@@ -8,6 +8,7 @@ namespace EstateFlow.Server.Data
         public DbSet<City> Cities => Set<City>();
         public DbSet<Property> Properties => Set<Property>();
         public DbSet<PropertyImage> PropertyImages => Set<PropertyImage>();
+        public DbSet<Meter> Meters => Set<Meter>();
         public DbSet<UtilityType> UtilityTypes => Set<UtilityType>();
         public DbSet<Provider> Providers => Set<Provider>();
 
@@ -64,6 +65,25 @@ namespace EstateFlow.Server.Data
                     Name = "Living Room",
                     FilePath = "uploads/properties/budapest_apartment_livingroom0.jpg",
                     UploadedAt = new DateTime(2026, 2, 11, 10, 12, 0, DateTimeKind.Utc),
+                    PropertyId = new Guid("7c9e6679-7425-40de-944b-e07456789012")
+                }
+            );
+
+            modelBuilder.Entity<Meter>().HasData(
+                new Meter
+                {
+                    Id = new Guid("1f8fad5b-d9cb-469f-a165-70867728950e"),
+                    Name = "Electricity Meter",
+                    Location = "Basement",
+                    SerialNumber = "ELEC123456",
+                    PropertyId = new Guid("0f8fad5b-d9cb-469f-a165-70867728950e")
+                },
+                new Meter
+                {
+                    Id = new Guid("3c9e6679-7425-40de-944b-e07456789012"),
+                    Name = "Water Meter",
+                    Location = "Utility Room",
+                    SerialNumber = "WATR654321",
                     PropertyId = new Guid("7c9e6679-7425-40de-944b-e07456789012")
                 }
             );
