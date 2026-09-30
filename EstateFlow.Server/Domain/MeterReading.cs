@@ -1,0 +1,16 @@
+﻿namespace EstateFlow.Server.Domain
+{
+    public class MeterReading
+    {
+        public Guid Id { get; set; }
+        public DateTime MesuredAt { get; set; }
+        public decimal Value { get; set; }
+        public DateTime ReportedAt { get; set; }
+        public DateTime? ApprovedAt { get; set; }
+        public string? PhotoPath { get; set; }
+
+
+        public Guid MeterId { get; set; }
+        public Meter? Meter { get; set; }
+    }
+}

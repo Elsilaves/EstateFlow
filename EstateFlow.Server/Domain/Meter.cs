@@ -12,5 +12,7 @@
         public UtilityType? UtilityType { get; set; }
         public int ProviderId { get; set; }
         public Provider? Provider { get; set; }
+
+        public List<MeterReading> MeterReadings { get; set; } = new List<MeterReading>();
     }
 }
