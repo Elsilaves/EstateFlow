@@ -14,5 +14,6 @@
         public City? City { get; set; }
 
         public ICollection<PropertyImage> Images { get; set; } = new List<PropertyImage>();
+        public ICollection<Meter> Meters { get; set; } = new List<Meter>();
     }
 }

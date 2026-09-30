@@ -8,5 +8,9 @@
         public string SerialNumber { get; set; }
         public Guid PropertyId { get; set; }
         public Property? Property { get; set; }
+        public int UtilityTypeId { get; set; }
+        public UtilityType? UtilityType { get; set; }
+        public int ProviderId { get; set; }
+        public Provider? Provider { get; set; }
     }
 }
