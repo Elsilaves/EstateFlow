@@ -3,9 +3,12 @@
     public class Meter
     {
         public Guid Id { get; set; }
+        
         public string Name { get; set; }
         public string Location { get; set; }
         public string SerialNumber { get; set; }
+        public string? ReadingPeriod { get; set; }
+        public string? Note { get; set; }
         public Guid PropertyId { get; set; }
         public Property? Property { get; set; }
         public int UtilityTypeId { get; set; }
