@@ -14,6 +14,8 @@ namespace EstateFlow.Server.Data
         public DbSet<MeterReading> MeterReadings => Set<MeterReading>();
         public DbSet<Tenant> Tenants => Set<Tenant>();
         public DbSet<Rental> Rentals => Set<Rental>();
+        public DbSet<Contract> Contracts => Set<Contract>();
+        public DbSet<Invoice> Invoices => Set<Invoice>();
 
         public EstateFlowDbContext(DbContextOptions<EstateFlowDbContext> options) : base(options)
         {
@@ -34,6 +36,10 @@ namespace EstateFlow.Server.Data
             modelBuilder.Entity<Meter>().HasOne(m => m.Provider).WithMany().HasForeignKey(m => m.ProviderId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Invoice>().HasOne(i => i.Provider).WithMany().HasForeignKey(i => i.ProviderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
             //Cascade delete behavior. Entities with foreign key relationships will be deleted if the principal entity is deleted.
             modelBuilder.Entity<MeterReading>().HasOne(r => r.Meter).WithMany(m => m.MeterReadings).HasForeignKey(r => r.MeterId)
                 .OnDelete(DeleteBehavior.Cascade);
@@ -41,6 +47,7 @@ namespace EstateFlow.Server.Data
             // Set precision for decimal properties. maximum 18 digits, 2 decimal places
             modelBuilder.Entity<Rental>().Property(r => r.MonthlyRent).HasPrecision(18, 2);
             modelBuilder.Entity<MeterReading>().Property(r => r.Value).HasPrecision(18, 3);
+            modelBuilder.Entity<Invoice>().Property(i => i.Amount).HasPrecision(18, 2);
 
 
             //Seed data
