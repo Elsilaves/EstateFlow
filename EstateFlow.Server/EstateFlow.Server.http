@@ -1,6 +1,3 @@
 @EstateFlow.Server_HostAddress = http://localhost:5093
 
-GET {{EstateFlow.Server_HostAddress}}/weatherforecast/
-Accept: application/json
-
 ###
