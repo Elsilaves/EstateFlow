@@ -13,3 +13,34 @@ GET {{EstateFlow.Server_HostAddress}}/api/properties/{id}
 GET {{EstateFlow.Server_HostAddress}}/api/properties/{id}/meters
 
 ###
+
+GET {{EstateFlow.Server_HostAddress}}/api/cities
+
+###
+
+POST {{EstateFlow.Server_HostAddress}}/api/cities
+Content-Type: application/json
+
+{
+  //City
+}
+
+###
+
+@id=0
+DELETE {{EstateFlow.Server_HostAddress}}/api/cities/{{id}}
+
+###
+
+GET {{EstateFlow.Server_HostAddress}}/api/cities/{{id}}
+
+###
+
+PUT {{EstateFlow.Server_HostAddress}}/api/cities/{{id}}
+Content-Type: application/json
+
+{
+  //City
+}
+
+###
