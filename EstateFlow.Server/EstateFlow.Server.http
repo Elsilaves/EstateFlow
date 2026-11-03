@@ -9,3 +9,7 @@ GET {{EstateFlow.Server_HostAddress}}/api/properties
 GET {{EstateFlow.Server_HostAddress}}/api/properties/{id}
 
 ###
+
+GET {{EstateFlow.Server_HostAddress}}/api/properties/{id}/meters
+
+###
