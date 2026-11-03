@@ -39,6 +39,19 @@ public class PropertiesController : ControllerBase {
         }
         return Ok(property);
     }
+
+    // GET: api/Properties/{id}/meters
+    [HttpGet("{id}/meters")]
+    public async Task<ActionResult<IEnumerable<Meter>>> GetPropertyMeters(Guid id)
+    {
+        var propertyExists = await _context.Properties.AnyAsync(p => p.Id == id);
+        if (!propertyExists)
+        {
+            return NotFound();
+        }
+        var meters = await _context.Meters.Where(m => m.PropertyId == id).ToListAsync();
+        return Ok(meters);
+    }
 }
 
 
