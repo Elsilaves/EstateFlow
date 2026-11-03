@@ -24,7 +24,7 @@ public class PropertiesController : ControllerBase {
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Property>>> GetProperties()
     {
-        var properties = await _context.Properties.ToListAsync();
+        var properties = await _context.Properties.Include(p=>p.City).ToListAsync();
         return Ok(properties);
     }
 
@@ -32,7 +32,7 @@ public class PropertiesController : ControllerBase {
     [HttpGet("{id}")] 
     public async Task<ActionResult<Property>> GetProperty(Guid id)
     {
-        var property = await _context.Properties.FindAsync(id);
+        var property = await _context.Properties.Include(p=>p.City).FirstOrDefaultAsync(p=>p.Id == id);
         if (property is null)
         {
             return NotFound();
