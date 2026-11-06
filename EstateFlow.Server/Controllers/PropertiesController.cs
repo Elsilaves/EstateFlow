@@ -71,6 +71,38 @@ public class PropertiesController : ControllerBase {
         await _context.SaveChangesAsync();
         return CreatedAtAction(nameof(GetProperty), new { id = property.Id }, property);
     }
+
+    //PUT: api/Properties/{id}
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateProperty(Guid id, UpdatePropertyRequest request)
+    {
+        var property = await _context.Properties.FindAsync(id);
+        if (property is null)
+        {
+            return NotFound();
+        }
+        property.Name = request.Name;
+        property.Address = request.Address;
+        property.SquareMeters = request.SquareMeters;
+        property.AdvertisementText = request.AdvertisementText;
+        property.CityId = request.CityId;
+        await _context.SaveChangesAsync();
+        return NoContent();
+    }
+
+    // DELETE: api/Properties/{id}
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteProperty(Guid id)
+    {
+        var property = await _context.Properties.FindAsync(id);
+        if (property is null)
+        {
+            return NotFound();
+        }
+        _context.Properties.Remove(property);
+        await _context.SaveChangesAsync();
+        return NoContent();
+    }
 }
 
 
