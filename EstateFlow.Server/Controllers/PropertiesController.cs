@@ -2,7 +2,7 @@
 using EstateFlow.Server.Data;
 using EstateFlow.Server.Domain;
 using Microsoft.EntityFrameworkCore;
-
+using EstateFlow.Server.Contracts.Properties;
 
 
 namespace EstateFlow.Server.Controllers;
@@ -51,6 +51,25 @@ public class PropertiesController : ControllerBase {
         }
         var meters = await _context.Meters.Where(m => m.PropertyId == id).ToListAsync();
         return Ok(meters);
+    }
+
+    // POST: api/Properties
+    [HttpPost]
+    public async Task<ActionResult<Property>> CreateProperty(CreatePropertyRequest request)
+    {
+        var property = new Property
+        {
+            Id = Guid.NewGuid(),
+            Code = request.Code,
+            Name = request.Name,
+            Address = request.Address,
+            SquareMeters = request.SquareMeters,
+            AdvertisementText = request.AdvertisementText,
+            CityId = request.CityId
+        };
+        _context.Properties.Add(property);
+        await _context.SaveChangesAsync();
+        return CreatedAtAction(nameof(GetProperty), new { id = property.Id }, property);
     }
 }
 
