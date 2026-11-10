@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using EstateFlow.Server.Contracts.Properties;
 using EstateFlow.Server.Contracts.Meters;
 using Mapster;
+using FluentValidation;
 
 namespace EstateFlow.Server.Controllers;
 
@@ -15,10 +16,14 @@ namespace EstateFlow.Server.Controllers;
 public class PropertiesController : ControllerBase { 
 
     private readonly EstateFlowDbContext _context;
+    private readonly IValidator<CreatePropertyRequest> _createValidator;
+    private readonly IValidator<UpdatePropertyRequest> _updateValidator;
 
-    public PropertiesController(EstateFlowDbContext context)
+    public PropertiesController(EstateFlowDbContext context, IValidator<CreatePropertyRequest> createValidator, IValidator<UpdatePropertyRequest> updateValidator)
     {
         _context = context;
+        _createValidator = createValidator;
+        _updateValidator = updateValidator;
     }
 
     // GET: api/Properties
@@ -58,6 +63,16 @@ public class PropertiesController : ControllerBase {
     [HttpPost]
     public async Task<ActionResult<PropertyResponse>> CreateProperty(CreatePropertyRequest request)
     {
+        var validationResult = await _createValidator.ValidateAsync(request);
+        if (!validationResult.IsValid)
+        {
+            foreach (var error in validationResult.Errors)
+            {
+                ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+            }
+            return BadRequest(ModelState);
+        }
+
         var property = new Property
         {
             Id = Guid.NewGuid(),
@@ -80,6 +95,16 @@ public class PropertiesController : ControllerBase {
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateProperty(Guid id, UpdatePropertyRequest request)
     {
+        var validationResult = await _updateValidator.ValidateAsync(request);
+        if (!validationResult.IsValid)
+        {
+            foreach (var error in validationResult.Errors)
+            {
+                ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+            }
+            return BadRequest(ModelState);
+        }
+
         var property = await _context.Properties.FindAsync(id);
         if (property is null)
         {
